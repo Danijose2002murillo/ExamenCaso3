@@ -28,61 +28,6 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    private List<Producto> lista=new ArrayList<>();
-
-    public Producto() {
-    }
-
-    public void guardar(Context context) {
-        DbHelper db = new DbHelper(context);
-        System.out.println("hola");
-        String noSql = "INSERT INTO producto (id,nombre,descripcion,costo,precio,stock,fecha) " +
-                "VALUES (" + getCodigo() + ",'" + getNombre()+ "','" + getDescripcion() + "'," + getCosto()+ ","+getPrecio()+","
-                +getStock()+",'"+getFecha()+"');";
-        db.noQuery(noSql);
-        db.close();
-    }
-
-    public void Editar(Context context) {
-        DbHelper db = new DbHelper(context);
-      /*  String noSql = "UPDATE producto set nombre= ' "+getNombre()+"', descripcion= '"+getDescripcion()
-                + "', costo= "+getCosto()+", precio= "+getPrecio()+", stock= "+getStock()+ " where id="+getCodigo()+";";*/
-
-       String noSql = "UPDATE producto set nombre= ' "+getNombre()+"', descripcion= '"+getDescripcion()
-                + "', costo= "+getCosto()+", precio= "+getPrecio()+", stock= "+getStock()+ ", fecha= '"+getFecha()+ " '  where id="+getCodigo()+";";
-        db.noQuery(noSql);
-        db.close();
-    }
-
-    public void eliminar(Context context){
-        DbHelper db = new DbHelper(context);
-        String noSql = "DELETE FROM producto where id= "+getCodigo();
-        db.noQuery(noSql);
-        db.close();
-
-    }
-
-
-
-    public List<Producto> listar(Context context) {
-        DbHelper db = new DbHelper(context);
-        String sql = "SELECT * FROM producto";
-        Cursor cursor = db.query(sql);
-        while(cursor.moveToNext()){
-            Producto p=new Producto();
-            p.setCodigo(cursor.getInt(0));
-            p.setNombre(cursor.getString(1));
-            p.setDescripcion(cursor.getString(2));
-            p.setCosto(cursor.getDouble(4));
-            p.setPrecio(cursor.getDouble(3));
-            p.setStock(cursor.getInt(5));
-            p.setFecha(cursor.getString(6));
-            lista.add(p);
-        }
-        return lista;
-    }
-
-
     public int getCodigo() {
         return codigo;
     }
@@ -147,4 +92,60 @@ public class Producto {
     public void setImagen(byte imagen) {
         this.imagen = imagen;
     }
+
+    private List<Producto> lista=new ArrayList<>();
+
+    public Producto() {
+    }
+
+    public void guardar(Context context) {
+        DbHelper db = new DbHelper(context);
+        System.out.println("hola");
+        String noSql = "INSERT INTO producto (id,nombre,descripcion,costo,precio,stock,fecha) " +
+                "VALUES (" + getCodigo() + ",'" + getNombre()+ "','" + getDescripcion() + "'," + getCosto()+ ","+getPrecio()+","
+                +getStock()+",'"+getFecha()+"');";
+        db.noQuery(noSql);
+        db.close();
+    }
+
+    public void Editar(Context context) {
+        DbHelper db = new DbHelper(context);
+      /*  String noSql = "UPDATE producto set nombre= ' "+getNombre()+"', descripcion= '"+getDescripcion()
+                + "', costo= "+getCosto()+", precio= "+getPrecio()+", stock= "+getStock()+ " where id="+getCodigo()+";";*/
+
+       String noSql = "UPDATE producto set nombre= ' "+getNombre()+"', descripcion= '"+getDescripcion()
+                + "', costo= "+getCosto()+", precio= "+getPrecio()+", stock= "+getStock()+ ", fecha= '"+getFecha()+ " '  where id="+getCodigo()+";";
+        db.noQuery(noSql);
+        db.close();
+    }
+
+    public void eliminar(Context context){
+        DbHelper db = new DbHelper(context);
+        String noSql = "DELETE FROM producto where id= "+getCodigo();
+        db.noQuery(noSql);
+        db.close();
+
+    }
+
+
+
+    public List<Producto> listar(Context context) {
+        DbHelper db = new DbHelper(context);
+        String sql = "SELECT * FROM producto";
+        Cursor cursor = db.query(sql);
+        while(cursor.moveToNext()){
+            Producto p=new Producto();
+            p.setCodigo(cursor.getInt(0));
+            p.setNombre(cursor.getString(1));
+            p.setDescripcion(cursor.getString(2));
+            p.setCosto(cursor.getDouble(4));
+            p.setPrecio(cursor.getDouble(3));
+            p.setStock(cursor.getInt(5));
+            p.setFecha(cursor.getString(6));
+            lista.add(p);
+        }
+        return lista;
+    }
+
+
 }
